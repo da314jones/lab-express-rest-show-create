@@ -4,10 +4,12 @@ const createLog = require("./controllers/logs/create");
 const readLog = require("./controllers/logs/read");
 const updateLog = require("./controllers/logs/update");
 const deleteLog = require("./controllers/logs/delete");
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.send(`Welcome to The Captains Log.`);
@@ -31,9 +33,14 @@ app.put("/logs/:index", updateLog);
 app.delete("/logs/:index", deleteLog);
 
 // Middleware error handling always at the bottom of the stack
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send(`Sumting BreK!`);
+app.get("/:index", (req, res) => {
+    const { index } = req.params;
+    if (index >= 0 && index < models.length) {
+        res.status(200).json(models[index]);
+    } else {
+        res.status(404).redirect('/404', "show server");
+    }
 });
+
 
 module.exports = app;
