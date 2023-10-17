@@ -1,9 +1,9 @@
 const express = require("express");
 const models = require("./models/models");
-const createLog = require("./controllers/logs/create");
-const readLog = require("./controllers/logs/read");
-const updateLog = require("./controllers/logs/update");
-const deleteLog = require("./controllers/logs/delete");
+const createLog = require("./controllers/create");
+const readLog = require("./controllers/read");
+const updateLog = require("./controllers/update");
+const deleteLog = require("./controllers/delete");
 const cors = require("cors");
 
 const app = express();
